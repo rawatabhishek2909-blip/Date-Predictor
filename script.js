@@ -1,10 +1,15 @@
-function startProcess(day) {
+function startProcess(selectedDay) {
 
     const loadingDiv = document.getElementById("loading");
     const finalDiv = document.getElementById("finalResult");
 
     loadingDiv.innerHTML = "";
     finalDiv.innerHTML = "";
+
+    // Get today's real day
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const today = new Date().getDay();
+    const actualDay = days[today];
 
     const steps = [
         "🔍 Consulting Elon Musk...",
@@ -22,9 +27,18 @@ function startProcess(day) {
             i++;
         } else {
             clearInterval(interval);
-            finalDiv.innerHTML = 
-                `✅ You selected <b>${day}</b>.<br><br>
-                 🎉 You're right! Your IQ is higher than 99% of humanity.`;
+
+            if (selectedDay === actualDay) {
+                finalDiv.innerHTML = 
+                `✅ You selected <b>${selectedDay}</b>.<br><br>
+                🎉 You're right! Your IQ is higher than 99% of humanity.`;
+            } else {
+                finalDiv.innerHTML = 
+                `❌ You selected <b>${selectedDay}</b>.<br><br>
+                🤡 Incorrect! Today is <b>${actualDay}</b>.<br>
+                Oops! Today is <b>${actualDay}</b>.
+Better luck next time, genius in progress!`;
+            }
         }
     }, 1000);
 }
